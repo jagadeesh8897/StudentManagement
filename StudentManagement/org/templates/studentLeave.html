@@ -1,0 +1,184 @@
+
+{% extends 'studentPage.html' %}
+
+{% block title %}login Page{% endblock %}
+
+{% block content %}
+<html>
+<head>
+    <title>Apply Leave</title>
+    <style>
+         .t3 {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    .t3 th,
+    .t3 td {
+        padding: 12px 20px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+    .t3 th {
+        background-color: #007BFF;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .t3 tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .t3 tr:hover {
+        background-color: #e6f7ff;
+    }
+
+    .t3 a {
+        text-decoration: none;
+        color: #007BFF;
+        margin: 0 8px;
+        font-weight: bold;
+    }
+
+    .t3 a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+    form button {
+    height: 30px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+        }
+
+        .feedback-box {
+            margin-top: -250px;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            resize: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .success-message {
+            text-align: center;
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-container">
+        <div class="feedback-box">
+            <h2>Apply Leave</h2>
+
+            {% if message %}
+                <p class="success-message">{{ message }}</p>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <label for="date">Leave Date</label>
+                <input type="date" id="date" name="leave_date" required><br>
+                <label>Leave reason</label>
+                <textarea name="message" placeholder="Enter your leave reason here..." required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        </div>
+{% if leaves %}
+        <h2>My Leave Applications</h2>
+        <table class="t3">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Leave Date</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leave in leaves %}
+                <tr>
+                    <td>{{ leave.submitted_at|date:"Y-m-d" }}</td>
+                    <td>{{ leave.submitted_at|time:"H:i" }}</td>
+                    <td>{{ leave.leave_date }}</td>
+                    <td>{{ leave.message }}</td>
+                    <td>
+                        {% if leave.status == "Approved" %}
+                            <span class="status-approved">Approved</span>
+                        {% elif leave.status == "Rejected" %}
+                            <span class="status-rejected">Rejected</span>
+                        {% else %}
+                            <span class="status-pending">Pending</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+</body>
+</html>
+{% endblock %}

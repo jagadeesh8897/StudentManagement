@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}login Page{% endblock %}
+
+{% block content %}>
+<head>
+    <style>
+        .t3 {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    .t3 th,
+    .t3 td {
+        padding: 12px 20px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+    .t3 th {
+        background-color: #007BFF;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .t3 tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .t3 tr:hover {
+        background-color: #e6f7ff;
+    }
+
+    .t3 a {
+        text-decoration: none;
+        color: #007BFF;
+        margin: 0 8px;
+        font-weight: bold;
+    }
+
+    .t3 a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+    form button {
+    height: 30px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+    </style>
+</head>
+<h2>Marks for {{ student.fullname }} (Roll No: {{ student.rollno }})</h2>
+
+<table border="1" align="center" class="t3">
+    <tr>
+        <th>Subject</th>
+        <th>Marks</th>
+    </tr>
+
+    {% for mark in marks %}
+    <tr>
+        <td>{{ mark.subject }}</td>
+        <td>{{ mark.marks }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="2">No marks available.</td>
+    </tr>
+    {% endfor %}
+
+</table>
+<br>
+<div style="text-align: center;">
+        {% if status == "Pass" %}
+            <span style="color:green;">Result: {{ status }} with Grade {{ grade }}</span>
+        {% else %}
+            <span style="color:red;">Result: {{ status }}</span>
+        {% endif %}
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,194 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+<center>
+<head>
+    <style>
+        .t2{
+            align-items: center;
+            color: black;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            width: 500px;
+
+
+
+        }
+        .t2 td{
+            color: blue;
+            align-items: center;
+            text-align: center;
+            font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+        }
+        .t2 th{
+            background-color: skyblue;
+        }
+        h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .t3 {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    .t3 th,
+    .t3 td {
+        padding: 12px 20px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+    .t3 th {
+        background-color: #007BFF;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .t3 tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .t3 tr:hover {
+        background-color: #e6f7ff;
+    }
+
+    .t3 a {
+        text-decoration: none;
+        color: #007BFF;
+        margin: 0 8px;
+        font-weight: bold;
+    }
+
+    .t3 a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+    form button {
+    height: 30px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Add Student Button */
+#addStudentBtn {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#addStudentBtn:hover {
+    background-color: #218838;
+}
+    </style>
+</head>
+<div style="background-color: skyblue">
+
+    <div class="center-container">
+    <!-- All your content here (search bar, buttons, tables, etc.) -->
+
+<form method="get" action="">
+<input type="text" name="search" value="{{ request.GET.search }}" placeholder="search by Name or Roll number" style="width: 200px ;height: 25px" >
+    <button type="submit" style="height: 25px;background-color: blue;color: #e6f0ff;">Search</button>
+    </form>
+    <br>
+
+    <button id="addStudentBtn" onclick="showForm()" style="height: 25px;background-color: blue;color: #e6f0ff;" type="submit">+Add Student</button><br>
+<br>
+
+{% if messages %}
+  {% for message in messages %}
+    <div style="color: green; font-weight: bold;">
+      ⚠️ {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+<br>
+<div id="studentFormContainer" style="display: none">
+
+    <form method="post" action="/submit/">
+    {% csrf_token %}
+
+
+    <table class="t3" style="width: 550px">
+        <p>Enter student details</p>
+        <tr>
+            <td><label for="fullname">Full Name:</label></td>
+            <td><input style="width: 200px; height: 20px" type="text" name="fullname" id="fullname" placeholder="Enter name" required></td>
+        </tr>
+        <tr>
+            <td><label for="rollno">Roll Number:</label></td>
+            <td><input style="width: 200px; height: 20px" type="text" name="rollno" id="rollno" placeholder="Enter roll number" required></td>
+        </tr>
+        <tr>
+            <td><label for="course">Course:</label></td>
+            <td><input style="width: 200px; height: 20px" type="text" name="course" id="course" placeholder="Enter course" required></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                <button type="submit">Submit</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+
+</div>
+
+    </div>
+    <h2>Student details</h2>
+    <table border="1" align="center" class="t3">
+    <tr>
+        <th>Student Name</th>
+    <th>Roll No</th>
+    <th>Course</th>
+        <th>Status</th>
+    </tr>
+    {% for dta in data %}
+    <tr>
+        <td>{{dta.fullname}}</td>
+        <td>{{dta.rollno}}</td>
+        <td>{{dta.course}}</td>
+        <td> <a href="/delete/{{ dta.rollno }}">Delete</a>
+    <a href="/edit/{{ dta.rollno }}">Edit</a></td>
+    </tr>
+    {% endfor %}
+    </table>
+<script>
+    function showForm() {
+        var formContainer = document.getElementById("studentFormContainer");
+        if (formContainer.style.display === "none" || formContainer.style.display === "") {
+            formContainer.style.display = "block";
+        } else {
+            formContainer.style.display = "none";
+        }
+    }
+</script>
+
+
+</div>
+</center>
+{% endblock %}

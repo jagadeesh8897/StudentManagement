@@ -1,0 +1,71 @@
+{% extends 'studentPage.html' %}
+
+{% block title %}Student Result{% endblock %}
+
+{% block content %}
+<style>
+       .t3 {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    .t3 th,
+    .t3 td {
+        padding: 12px 20px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+    .t3 th {
+        background-color: #007BFF;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .t3 tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .t3 tr:hover {
+        background-color: #e6f7ff;
+    }
+
+    .t3 a {
+        text-decoration: none;
+        color: #007BFF;
+        margin: 0 8px;
+        font-weight: bold;
+    }
+
+    .t3 a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+</style>
+ <h2>Student Result</h2>
+
+{% if error %}
+    <p style="color:red">{{ error }}</p>
+{% else %}
+
+    <table border="1" class="t3">
+        <tr>
+            <th>Subject</th>
+            <th>Marks</th>
+        </tr>
+        {% for m in marks %}
+        <tr>
+            <td>{{ m.subject }}</td>
+            <td>{{ m.marks }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p align="center"><strong>Status:</strong> {{ status }}</p>
+{% endif %}
+
+{% endblock %}

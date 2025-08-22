@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}login Page{% endblock %}
+
+{% block content %}>
+<head>
+    <style>
+        /* styles.css or inside <style> in base.html */
+
+form {
+    width: 350px;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+label {
+    font-weight: bold;
+    color: #555;
+}
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    margin-bottom: 15px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background-color: white;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    margin-bottom: 15px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #357ae8;
+}
+
+ul {
+    margin-top: 20px;
+    list-style-type: none;
+    padding-left: 0;
+    text-align: center;
+}
+
+ul li {
+    color: green;
+    font-weight: bold;
+}
+
+    </style>
+</head>
+
+    <h2>Enter Marks for {{ student.fullname }}</h2>
+{% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div class="main-content">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <label>Subject:</label><br>
+<select name="subject" required>
+    <option value="" disabled selected>Select a subject</option>
+    <option value="WDT">WDT</option>
+    <option value="JAVA">JAVA</option>
+    <option value="PYTHON">PYTHON</option>
+    <option value="DSA">DSA</option>
+    <option value="CD">CD</option>
+</select><br><br>
+
+        <label>Marks:</label><br>
+        <input type="number" name="marks" required><br><br>
+
+        <button type="submit">Submit</button>
+        </form>
+</div>
+
+
+{% endblock %}

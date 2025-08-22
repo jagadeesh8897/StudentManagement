@@ -1,0 +1,81 @@
+{% extends 'home.html' %}
+
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+</head>
+<body>
+<center>
+    <div id="page">
+<form method="POST" >
+    {% csrf_token %}
+
+        <h1>Registration Form</h1>
+        <table>
+            {% if messages %}
+  {% for message in messages %}
+    <div style="color: blue">
+        {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+            <tr>
+   <td> <label>UserName:</label></td>
+   <td><input type="text" name="username"></td>
+    </tr>
+          <tr>
+            <td><label>First Name :</label></td>
+            <td><input type="text" name="firstname"></td>
+          </tr>
+          <tr>
+            <td><label>Last Name :</label></td>
+            <td><input type="text" name="lastname"></td>
+          </tr>
+            <tr>
+            <td><label>Roll Number :</label></td>
+            <td><input type="text" name="rollno"></td>
+          </tr>
+        <tr>
+            <td><label >Email:</label></td>
+            <td><input type="email" name="email" id="email"></td>
+        </tr>
+        <tr>
+            <td><label>Phone number:</label></td>
+            <td><input type="text" name="number" id="number"></td>
+        </tr>
+        <tr>
+            <td><label >Password:</label></td>
+            <td><input type="password" name="password" id="password"></td>
+        </tr>
+        <tr>
+            <td><label >Re-enter Password:</label></td>
+            <td><input type="password" name="rpassword" id="rpassword"></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;">
+                <button type="submit" id="btn">Register</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;">
+                Already have an account? <a href="{% url 'login' %}">Login</a>
+            </td>
+        </tr>
+    </table>
+
+
+
+
+</form>
+        </div>
+</center>
+</body>
+</html>
+{% endblock %}

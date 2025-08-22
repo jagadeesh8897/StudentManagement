@@ -1,0 +1,52 @@
+{% extends 'home.html' %}
+
+{% block title %}login Page{% endblock %}
+
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css'%}">
+</head>
+<body>
+<div id="id1">
+<div id="page">
+<center>
+
+<form method="post" >
+    {% csrf_token %}
+
+
+  <table >
+      <h1>Admin Login</h1>
+      {% if messages %}
+  {% for message in messages %}
+    <div style="color: red; font-weight: bold;">
+      ⚠️ {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+      <tr>
+      <tr>
+           <td><label id="lb1" >Email</label></td>
+           <td><input type="text" name="email"></td>
+      </tr>
+
+      <tr>
+          <td><label id="lb2">Password</label></td>
+          <td><input type="password" name="password"><br></td>
+      </tr>
+</tr>
+  </table>
+    <button type="submit" id="btn" >Login</button><br>
+Don't have an account?<a href="{% url 'registeradmin' %}">Register</a>
+    </form>
+</center>
+  </div>
+    </div>
+</body>
+</html>
+{% endblock %}
