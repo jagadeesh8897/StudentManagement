@@ -84,10 +84,10 @@ WSGI_APPLICATION = 'StudentManagement.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'newstudent',
-        'USER': 'jagadeesh',
-        'PASSWORD': 'Jaga@8897',
-        'HOST': 'localhost',
+        'NAME': 'jagadeesh8897$default',
+        'USER': 'jagadeesh8897',
+        'PASSWORD': 'Jaga@8897python',
+        'HOST': 'jagadeesh8897.mysql.pythonanywhere-services.com',
         'PORT': '3306',
     }
 }
